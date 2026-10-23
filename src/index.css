@@ -1,0 +1,194 @@
+
+@import "tailwindcss";
+
+@theme {
+  --color-mocha: #6f4e37;
+  --color-mocha-dark: #4a3324;
+  --color-espresso: #2b1d14;
+  --color-platinum: #e5e4e2;
+  --color-lavender: #e6e0f0;
+  --color-lavender-deep: #b8a9d4;
+
+  --font-display: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+:root {
+  font-family: "Inter", sans-serif;
+  color: #e5e4e2;
+  background: #2b1d14;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      ellipse at 78% 5%,
+      rgba(184, 169, 212, 0.22) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 12% 55%,
+      rgba(111, 78, 55, 0.3) 0%,
+      transparent 50%
+    ),
+    linear-gradient(155deg, #4a3324 0%, #35251d 42%, #241810 100%);
+  background-attachment: fixed;
+}
+
+/* Restrained silver-lavender heading */
+.chrome-text {
+  background-image: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #e5e4e2 48%,
+    #b8a9d4 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Opposite-moving photo strips */
+.photo-strip {
+  width: 100%;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 5%,
+    black 95%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 5%,
+    black 95%,
+    transparent
+  );
+}
+
+.photo-strip-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.photo-strip-group {
+  display: flex;
+  flex-shrink: 0;
+  gap: 12px;
+  padding-right: 12px;
+}
+
+.photo-strip-item {
+  width: 180px;
+  height: 108px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 1px solid rgba(230, 224, 240, 0.2);
+  border-radius: 12px;
+  background: #2b1d14;
+}
+
+.photo-strip-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.82;
+  transition:
+    opacity 300ms ease,
+    transform 500ms ease;
+}
+
+.photo-strip-item:hover img {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.photo-strip-left {
+  animation: photo-scroll-left 45s linear infinite;
+}
+
+.photo-strip-right {
+  animation: photo-scroll-right 45s linear infinite;
+}
+
+.photo-strip:hover .photo-strip-track {
+  animation-play-state: paused;
+}
+
+@keyframes photo-scroll-left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes photo-scroll-right {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Subtle search focus */
+.search-shell {
+  background: rgba(230, 224, 240, 0.14);
+}
+
+.search-shell:focus-within {
+  background: linear-gradient(
+    110deg,
+    rgba(230, 224, 240, 0.75),
+    rgba(184, 169, 212, 0.65)
+  );
+  box-shadow: 0 0 22px rgba(184, 169, 212, 0.12);
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .photo-strip-group {
+    gap: 8px;
+    padding-right: 8px;
+  }
+
+  .photo-strip-item {
+    width: 135px;
+    height: 84px;
+    border-radius: 9px;
+  }
+
+  .photo-strip-left,
+  .photo-strip-right {
+    animation-duration: 35s;
+  }
+}
